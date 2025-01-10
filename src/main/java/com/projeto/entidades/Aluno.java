@@ -55,6 +55,15 @@ public class Aluno {
         }
     }
 
+    public void adicionarCursos(String nomeCurso) {
+        if (nomeCurso != null && !nomeCurso.isEmpty()) {
+            Curso curso = new Curso(nomeCurso, null);
+            adicionarCurso(curso);
+        } else {
+            System.out.println("Nenhum curso encontrado");
+        }
+    }
+
     public void removerCurso(Curso curso) {
         if (cursos.remove(curso)) {
             System.out.println("Curso " + curso.getNome() + " removido do aluno " + nome + ".");
