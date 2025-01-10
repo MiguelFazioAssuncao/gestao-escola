@@ -10,6 +10,8 @@ public class Turma {
     private Curso curso;
 
     public Turma() {
+        this.alunos = new ArrayList<>();
+        this.ano = new Date();
     }
 
     public Turma(List<Aluno> alunos, Curso curso) {
@@ -25,6 +27,18 @@ public class Turma {
             System.out.println("Alunos encontrados: " + alunos.size());
             for (Aluno aluno : alunos) {
                 System.out.println(" - " + aluno.getNome());
+            }
+        }
+    }
+
+    public void listarAlunos(String nome) {
+        if(alunos.isEmpty()) {
+            System.out.println("Nenhum aluno encontrado");
+        } else {
+            for (Aluno aluno : alunos) {
+                if (aluno.getNome().equals(nome)) {
+                    System.out.println(" - " + aluno.getNome());
+                }
             }
         }
     }
