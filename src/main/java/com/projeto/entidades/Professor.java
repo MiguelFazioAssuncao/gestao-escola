@@ -1,6 +1,6 @@
 package main.java.com.projeto.entidades;
 
-public class Professor {
+public class Professor extends Funcionario{
     private String nome;
     private int idade;
     private int tempoTrabalho;
