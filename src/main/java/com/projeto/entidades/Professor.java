@@ -14,6 +14,11 @@ public class Professor {
         this.tempoTrabalho = tempoTrabalho;
     }
 
+    public Professor(String nome, int idade) {
+        this.nome = nome;
+        this.idade = idade;
+    }
+
     public String getNome() {
         return nome;
     }
