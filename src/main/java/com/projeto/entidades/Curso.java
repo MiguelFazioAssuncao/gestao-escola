@@ -29,6 +29,10 @@ public class Curso {
         this.professor = professor;
     }
 
+    public void setProfessor(String nomeProfessor, int idade) {
+        this.professor = new Professor(nomeProfessor, idade, 0);
+    }
+
     @Override
     public String toString() {
         return "Curso{" +
