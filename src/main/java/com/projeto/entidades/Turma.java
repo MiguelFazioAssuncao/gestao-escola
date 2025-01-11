@@ -21,48 +21,69 @@ public class Turma {
     }
 
     public void listarAlunos(List<Aluno> alunos) {
-        if(alunos.isEmpty()) {
-            System.out.println("Nenhum aluno encontrado");
-        } else {
-            System.out.println("Alunos encontrados: " + alunos.size());
-            for (Aluno aluno : alunos) {
-                System.out.println(" - " + aluno.getNome());
+        try {
+            if (alunos.isEmpty()) {
+                System.out.println("Nenhum aluno encontrado");
+            } else {
+                System.out.println("Alunos encontrados: " + alunos.size());
+                for (Aluno aluno : alunos) {
+                    System.out.println(" - " + aluno.getNome());
+                }
             }
+        } catch (Exception e) {
+            System.out.println("Erro ao listar alunos: " + e.getMessage());
         }
     }
 
     public void listarAlunos(String nome) {
-        if(alunos.isEmpty()) {
-            System.out.println("Nenhum aluno encontrado");
-        } else {
-            for (Aluno aluno : alunos) {
-                if (aluno.getNome().equals(nome)) {
-                    System.out.println(" - " + aluno.getNome());
+        try {
+            if (alunos.isEmpty()) {
+                System.out.println("Nenhum aluno encontrado");
+            } else {
+                for (Aluno aluno : alunos) {
+                    if (aluno.getNome().equals(nome)) {
+                        System.out.println(" - " + aluno.getNome());
+                    }
                 }
             }
+        } catch (Exception e) {
+            System.out.println("Erro ao listar alunos pelo nome: " + e.getMessage());
         }
     }
 
     public void adicionarAluno(Aluno aluno) {
-        if (!alunos.contains(aluno) && aluno!=null) {
-            System.out.println("Aluno ja adicionado");
-            alunos.add(aluno);
-            System.out.println("Aluno " + aluno.getNome() + " adicionado a turma");
-        } else {
-            System.out.println("Nenhum aluno encontrado");
+        try {
+            if (alunos == null) {
+                throw new IllegalArgumentException("Aluno não pode ser nulo");
+            }
+
+            if (!alunos.contains(aluno)) {
+                alunos.add(aluno);
+                System.out.println("Aluno " + aluno.getNome() + " adicionado com sucesso á turma.");
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println("Erro ao adicionar aluno: " + e.getMessage());
         }
     }
 
     void removerAluno(Aluno aluno) {
-        if(aluno!= null && alunos.remove(aluno)) {
-            System.out.println("Aluno " + aluno.getNome() + " removido da turma");
-        } else {
-            System.out.println("Nenhum aluno encontrado na turma");
+        try {
+            if (aluno == null) {
+                throw new IllegalArgumentException("Aluno não pode ser nulo");
+            }
+
+            if (alunos.remove(aluno)) {
+                System.out.println("Aluno " + aluno.getNome() + " removido da turma");
+            } else {
+                System.out.println("Nenhum aluno encontrado na turma");
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println("Erro ao remover aluno: " + e.getMessage());
         }
     }
 
     public List<Aluno> getAlunos() {
-        return alunos;
+        return new ArrayList<>(alunos);
     }
 
     public void setAlunos(List<Aluno> alunos) {
