@@ -4,7 +4,7 @@ import main.java.com.projeto.entidades.Professor;
 
 import java.util.ArrayList;
 
-public class DadosProfesores {
+public class DadosProfessores {
     ArrayList<Professor> professores;
 
     public void adicionarProfessores(Professor professor) {
