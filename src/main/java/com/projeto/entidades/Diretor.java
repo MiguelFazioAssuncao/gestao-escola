@@ -6,6 +6,12 @@ public class Diretor extends Funcionario{
     public Diretor(){
     }
 
+    public Diretor(String nome, int tempoDeCargo, Double salario) {
+        this.setNome(nome);
+        this.tempoDeCargo = tempoDeCargo;
+        this.setSalario(salario);
+    }
+
     public Diretor(int tempoDeCargo) {
         this.tempoDeCargo = tempoDeCargo;
     }
