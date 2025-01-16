@@ -62,7 +62,7 @@ public class Main {
                     default -> System.out.println("Opção inválida, tente novamente.");
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Entrada inválida! Por favor, digite um número.");
+                System.out.println("Opção inválida! Por favor, digite um número válido.");
                 scan.nextLine();
             }
         }
@@ -133,7 +133,7 @@ public class Main {
                 System.out.println("Opção inválida.");
             }
         } catch (InputMismatchException e) {
-            System.out.println("Erro ao criar ou entrar como usuário: " + e.getMessage());
+            System.out.println("Erro ao criar ou entrar como usuário: " + "Por favor, digite um número válido");
             scan.nextLine();
         }
     }
