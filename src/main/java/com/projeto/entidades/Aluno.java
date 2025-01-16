@@ -6,6 +6,7 @@ import java.util.List;
 public class Aluno {
     private String nome;
     private final List<Curso> cursos;
+    private boolean contaAtiva = false;
 
     public Aluno() {
         this.cursos = new ArrayList<>();
@@ -68,7 +69,7 @@ public class Aluno {
         }
     }
 
-    public void adicionarCursos(String nomeCurso) throws IllegalArgumentException {
+    public void adicionarCurso(String nomeCurso) throws IllegalArgumentException {
         try {
         if (nomeCurso != null && !nomeCurso.isEmpty()) {
             Curso curso = new Curso(nomeCurso, null);
@@ -103,5 +104,13 @@ public class Aluno {
                 "nome='" + nome + '\'' +
                 ", cursos=" + cursos +
                 '}';
+    }
+
+    public boolean isContaAtiva() {
+        return contaAtiva;
+    }
+
+    public void setContaAtiva(boolean contaAtiva) {
+        this.contaAtiva = contaAtiva;
     }
 }
