@@ -20,20 +20,21 @@ public class Turma {
         this.ano = new Date();
     }
 
-    public void listarAlunos(List<Aluno> alunos) {
+    public void listarAlunos() {
         try {
             if (alunos.isEmpty()) {
                 System.out.println("Nenhum aluno encontrado");
             } else {
                 System.out.println("Alunos encontrados: " + alunos.size());
-                for (Aluno aluno : alunos) {
-                    System.out.println(" - " + aluno.getNome());
+                for (int i = 0; i < alunos.size(); i++) {
+                    System.out.println((i + 1) + " - " + alunos.get(i).getNome());
                 }
             }
         } catch (Exception e) {
             System.out.println("Erro ao listar alunos: " + e.getMessage());
         }
     }
+
 
     public void listarAlunos(String nome) {
         try {
@@ -66,20 +67,35 @@ public class Turma {
         }
     }
 
-    void removerAluno(Aluno aluno) {
+    public void adicionarAluno(String nomeAluno) {
         try {
-            if (aluno == null) {
-                throw new IllegalArgumentException("Aluno não pode ser nulo");
+            if (nomeAluno == null || nomeAluno.isEmpty()) {
+                System.out.println("Erro ao adicionar aluno: Nome do aluno não pode ser nulo ou vazio.");
+                return;
             }
-
-            if (alunos.remove(aluno)) {
-                System.out.println("Aluno " + aluno.getNome() + " removido da turma");
+            Aluno novoAluno = new Aluno(nomeAluno, null);
+            if (alunos.contains(novoAluno)) {
+                System.out.println("Este aluno já foi adicionado!");
             } else {
-                System.out.println("Nenhum aluno encontrado na turma");
+                alunos.add(novoAluno);
+                System.out.println("Aluno " + nomeAluno + " adicionado com sucesso.");
             }
         } catch (IllegalArgumentException e) {
-            System.out.println("Erro ao remover aluno: " + e.getMessage());
+            System.out.println("Erro ao adicionar aluno: " + e.getMessage());
         }
+    }
+
+    void removerAluno(String nomeAluno) {
+       if (nomeAluno == null || nomeAluno.isEmpty()) {
+           throw new IllegalArgumentException("Nome do aluno não pode ser nulo ou vazio.");
+       }
+       boolean alunoRemovido = alunos.removeIf(aluno -> aluno.getNome().equals(nomeAluno));
+
+       if (alunoRemovido) {
+           System.out.println("Aluno " + nomeAluno + " removido com sucesso.");
+       } else {
+           System.out.println("Nenhum aluno encontrado");
+       }
     }
 
     public List<Aluno> getAlunos() {
