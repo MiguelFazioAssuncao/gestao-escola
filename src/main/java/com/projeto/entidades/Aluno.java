@@ -2,6 +2,7 @@ package main.java.com.projeto.entidades;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Aluno {
     private String nome;
@@ -14,7 +15,7 @@ public class Aluno {
 
     public Aluno(String nome, List<Curso> cursos) {
         this.nome = nome;
-        this.cursos = cursos != null ? cursos : new ArrayList<>();
+        this.cursos = cursos != null ? new ArrayList<>(cursos) : new ArrayList<>();
     }
 
     public String getNome() {
@@ -36,17 +37,25 @@ public class Aluno {
         }
     }
 
+    public boolean getContaAtiva() {
+        return contaAtiva;
+    }
+
+    public void setContaAtiva(boolean contaAtiva) {
+        this.contaAtiva = contaAtiva;
+    }
+
     public void listarCursos() {
         try {
-        if (cursos.isEmpty()) {
-            System.out.println("Nenhum curso encontrado");
-        } else {
-           System.out.println("Cursos do aluno " + nome + ":");
-            for (Curso curso : cursos) {
-                System.out.println("- " + curso.getNome());
+            if (cursos.isEmpty()) {
+                System.out.println("Nenhum curso encontrado");
+            } else {
+                System.out.println("Cursos do aluno " + nome + ":");
+                for (Curso curso : cursos) {
+                    System.out.println("- " + curso.getNome());
+                }
             }
-          }
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Erro ao listar cursos: " + e.getMessage());
         }
     }
@@ -64,22 +73,26 @@ public class Aluno {
                 System.out.println("Curso já cadastado");
             }
 
-        } catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             System.out.println("Erro ao adicionar curso: " + e.getMessage());
         }
     }
 
-    public void adicionarCurso(String nomeCurso) throws IllegalArgumentException {
+    public void adicionarCurso(String nomeCurso) {
         try {
-        if (nomeCurso != null && !nomeCurso.isEmpty()) {
-            Curso curso = new Curso(nomeCurso, null);
-            adicionarCurso(curso);
-        } else {
-            throw new IllegalArgumentException("Nenhum curso encontrado");
-          }
-
-        } catch (IllegalArgumentException e){
-            System.out.println("Erro ao adicionar cursos pelo nome: " + e.getMessage());
+            if (nomeCurso == null || nomeCurso.isEmpty()) {
+                System.out.println("Erro ao adicionar curso: Nome do curso não pode ser nulo ou vazio.");
+                return;
+            }
+            Curso novoCurso = new Curso(nomeCurso, null);
+            if (cursos.contains(novoCurso)) {
+                System.out.println("Este curso já foi adicionado!");
+            } else {
+                cursos.add(novoCurso);
+                System.out.println("Curso " + nomeCurso + " adicionado com sucesso.");
+            }
+       } catch (IllegalArgumentException e) {
+            System.out.println("Erro ao adicionar curso: " + e.getMessage());
         }
     }
 
@@ -88,14 +101,40 @@ public class Aluno {
             if (curso == null) {
                 throw new IllegalArgumentException("O curso selecionado não pode ser nula");
             }
-           if (cursos.remove(curso)) {
-               System.out.println("Curso " + curso.getNome() + " removido do aluno " + nome + ".");
-          } else {
-               System.out.println("O curso não está matriculado para o aluno.");
-           }
-        } catch (IllegalArgumentException e){
+            if (cursos.remove(curso)) {
+                System.out.println("Curso " + curso.getNome() + " removido do aluno " + nome + ".");
+            } else {
+                System.out.println("O curso não está matriculado para o aluno.");
+            }
+        } catch (IllegalArgumentException e) {
             System.out.println("Erro ao remover curso: " + e.getMessage());
         }
+    }
+
+    public void removerCurso(String nomeCurso) {
+        if (nomeCurso == null || nomeCurso.isEmpty()) {
+            throw new IllegalArgumentException("Nome do curso não pode ser nulo ou vazio.");
+        }
+        boolean cursoRemovido = cursos.removeIf(curso -> curso.getNome().equalsIgnoreCase(nomeCurso));
+        if (cursoRemovido) {
+            System.out.println("Curso " + nomeCurso + " removido com sucesso.");
+        } else {
+            System.out.println("Nenhum curso encontrado");
+        }
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Aluno aluno = (Aluno) o;
+        return Objects.equals(nome, aluno.nome);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nome);
     }
 
     @Override
@@ -104,13 +143,5 @@ public class Aluno {
                 "nome='" + nome + '\'' +
                 ", cursos=" + cursos +
                 '}';
-    }
-
-    public boolean isContaAtiva() {
-        return contaAtiva;
-    }
-
-    public void setContaAtiva(boolean contaAtiva) {
-        this.contaAtiva = contaAtiva;
     }
 }
