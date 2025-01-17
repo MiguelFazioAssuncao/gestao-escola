@@ -4,8 +4,13 @@ public class Professor extends Funcionario{
     private String nome;
     private int idade;
     private int tempoTrabalho;
+    private Turma turma;
 
     public Professor() {
+    }
+
+    public Professor(String nome) {
+        this.nome = nome;
     }
 
     public Professor(String nome, int idade, int tempoTrabalho) {
@@ -43,6 +48,18 @@ public class Professor extends Funcionario{
         this.tempoTrabalho = tempoTrabalho;
     }
 
+    public void listarAlunos() {
+        turma.listarAlunos();
+    }
+
+    public void adicionarAluno(String nomeAluno) {
+        turma.adicionarAluno(nomeAluno);
+    }
+
+    public void removerAluno(String nomeAluno) {
+        turma.removerAluno(nomeAluno);
+    }
+
     @Override
     public String toString() {
         return "Professor{" +
@@ -50,5 +67,9 @@ public class Professor extends Funcionario{
                 ", idade=" + idade +
                 ", tempoTrabalho=" + tempoTrabalho +
                 '}';
+    }
+
+    public void setTurma(Turma turma) {
+        this.turma = turma;
     }
 }
